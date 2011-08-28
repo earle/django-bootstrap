@@ -2,13 +2,18 @@ Django Form wrapper for Twitter-Bootstrap
 =========================================
 http://twitter.github.com/bootstrap
 
+Installation:
+-------------
+Add to INSTALLED_APPS
+
+
 Usage:
 ------
-from bootstrap.forms import *
+        from bootstrap.forms import *
 
-class LoginForm(BootstrapForm):
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
+        class LoginForm(BootstrapForm):
+            username = forms.CharField(max_length=100)
+            password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
 
