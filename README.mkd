@@ -1,0 +1,39 @@
+Django Form wrapper for Twitter-Bootstrap
+=========================================
+http://twitter.github.com/bootstrap
+
+Usage:
+------
+from bootstrap.forms import *
+
+class LoginForm(BootstrapForm):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
+
+
+
+Template Usage:
+---------------
+
+        <div class="row">
+            <form action="/login/" method="post">
+                {{ form }}
+                <div class="actions">
+                    <button type="submit" class="btn primary">Login</button> &nbsp;
+                    <button type="reset" class="btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+
+TODO:
+-----
+Add field_* templates, and corresponding Widgets, for the unique Twitter
+Bootstrap UI elements:
+
+* prependedtext
+* prependedcheckbox
+* appendedcheckbox
+* daterange
+* optionlist
+
