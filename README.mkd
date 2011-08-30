@@ -20,19 +20,16 @@ Usage
 Template Usage
 --------------
 
-        <div class="row">
-            <form action="/login/" method="post">
-                {{ form }}
-                <div class="actions">
-                    <button type="submit" class="btn primary">Login</button> &nbsp;
-                    <button type="reset" class="btn">Cancel</button>
-                </div>
-            </form>
-        </div>
+        <form action="/login/" method="post">
+            {{ form }}
+            <div class="actions">
+                <button type="submit" class="btn primary">Login</button> &nbsp;
+            </div>
+        </form>
 
 
-Screenshot
-----------
+Example Screenshot
+------------------
 ![Example Form](http://i.imgur.com/lJEok.png)
 
 
