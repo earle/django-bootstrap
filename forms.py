@@ -6,7 +6,7 @@ from django.utils.html import escape
 from django import forms
 
 class NoSuchFormField(Exception):
-    "The form field couldn't be resolved."
+    """""The form field couldn't be resolved."""""
     pass
 
 def error_list(errors):
@@ -43,7 +43,7 @@ class BootstrapForm(forms.Form):
         self.top_errors = []
 
     def as_div(self):
-        ''' Render the form as a set of <div>s. '''
+        """ Render the form as a set of <div>s. """
 
         output = self.render_fields(self.layout)
         prefix = u''.join(self.prefix)
@@ -64,7 +64,7 @@ class BootstrapForm(forms.Form):
     __unicode__ = as_div
 
     def render_fields(self, fields, separator=u""):
-        ''' Render a list of fields and join the fields by the value in separator. '''
+        """ Render a list of fields and join the fields by the value in separator. """
 
         output = []
         
@@ -78,7 +78,7 @@ class BootstrapForm(forms.Form):
 
 
     def render_field(self, field):
-        ''' Render a named field to HTML. '''
+        """ Render a named field to HTML. """
 
         try:
             field_instance = self.fields[field]
@@ -121,15 +121,16 @@ class BootstrapForm(forms.Form):
             else:
                 help_text = u''
 
-            field_hash = { 'field' : mark_safe(field),
-                           'class' : mark_safe(css_class),
-                           'label' : mark_safe(bf.label and bf.label_tag(bf.label) or ''),
-                           'help_text' :mark_safe(help_text),
-                           'field' : field_instance,
-                           'bf' : mark_safe(unicode(bf)),
-                           'bf_raw' : bf,
-                           'errors' : mark_safe(bf_errors),
-                           'field_type' : mark_safe(field.__class__.__name__), }
+            field_hash = {
+                'class' : mark_safe(css_class),
+                'label' : mark_safe(bf.label and bf.label_tag(bf.label) or ''),
+                'help_text' :mark_safe(help_text),
+                'field' : field_instance,
+                'bf' : mark_safe(unicode(bf)),
+                'bf_raw' : bf,
+                'errors' : mark_safe(bf_errors),
+                'field_type' : mark_safe(field.__class__.__name__),
+            }
             
             if self.custom_fields.has_key(field):
                 template = get_template(self.custom_fields[field])
@@ -145,7 +146,7 @@ class BootstrapForm(forms.Form):
 
 
 class Fieldset(object):
-    ''' Fieldset container. Renders to a <fieldset>. '''
+    """ Fieldset container. Renders to a <fieldset>. """
 
     def __init__(self, legend, *fields):
         self.legend_html = legend and ('<legend>%s</legend>' % legend) or ''
