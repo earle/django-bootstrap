@@ -2,10 +2,10 @@ AUTHORS
 LICENSE
 README.mkd
 setup.py
-django_bootstrap/__init__.py
-django_bootstrap/models.py
-django_bootstrap/tests.py
-django_bootstrap/forms.py
-django_bootstrap/views.py
-django_bootstrap/templates/bootstrap/field_default.html
+bootstrap/__init__.py
+bootstrap/models.py
+bootstrap/tests.py
+bootstrap/forms.py
+bootstrap/views.py
+bootstrap/templates/bootstrap/field_default.html
 
