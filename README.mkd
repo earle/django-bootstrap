@@ -9,28 +9,28 @@ Add to INSTALLED_APPS
 
 Usage
 -----
-        from bootstrap.forms import *
+    from bootstrap.forms import BootstrapForm
 
-        class LoginForm(BootstrapForm):
-            class Meta:
-                layout = (
-                    Fieldset("Please Login", "username", "password", ),
-                )
+    class LoginForm(BootstrapForm):
+        class Meta:
+            layout = (
+                Fieldset("Please Login", "username", "password", ),
+            )
 
-            username = forms.CharField(max_length=100)
-            password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
+        username = forms.CharField(max_length=100)
+        password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
 
 Template Usage
 --------------
 
-        <form action="/login/" method="post">
-            {{ form }}
-            <div class="actions">
-                <button type="submit" class="btn primary">Login</button> &nbsp;
-            </div>
-        </form>
+    <form action="/login/" method="post">
+        {{ form }}
+        <div class="actions">
+            <button type="submit" class="btn primary">Login</button> &nbsp;
+        </div>
+    </form>
 
 
 Example Screenshot
