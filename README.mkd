@@ -4,8 +4,11 @@ http://twitter.github.com/bootstrap
 
 Installation
 ------------
-Add to INSTALLED_APPS
+1. Install using pip:
 
+        pip install -e git+git://github.com/earle/django-bootstrap.git#egg=bootstrap
+
+2. Add to INSTALLED_APPS
 
 Usage
 -----
