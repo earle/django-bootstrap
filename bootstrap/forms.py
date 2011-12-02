@@ -99,7 +99,7 @@ class BootstrapForm(forms.Form):
 
         if bf.is_hidden:
             # If the field is hidden, add it at the top of the form
-            self.prefix.append(unicode(bf))
+#            self.prefix.append(unicode(bf))
 
             # If the hidden field has errors, append them to the top_errors
             # list which will be printed out at the top of form
