@@ -93,13 +93,13 @@ class BootstrapForm(forms.Form):
             # If the field contains errors, render the errors to a <ul>
             # using the error_list helper function.
             # bf_errors = error_list([escape(error) for error in bf.errors])
-            bf_errors = bf.errors
+            bf_errors = ', '.join([e for e in bf.errors])
         else:
             bf_errors = ''
 
         if bf.is_hidden:
             # If the field is hidden, add it at the top of the form
-            self.prefix.append(unicode(bf))
+#            self.prefix.append(unicode(bf))
 
             # If the hidden field has errors, append them to the top_errors
             # list which will be printed out at the top of form
