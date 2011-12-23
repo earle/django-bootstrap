@@ -34,10 +34,11 @@ class BootstrapMixin(object):
         else:
             self.template_base = "bootstrap"
 
-        self.top_errors = []
-
     def as_div(self):
         """ Render the form as a set of <div>s. """
+
+        self.top_errors = []
+        self.prefix_fields = []
 
         output = self.render_fields(self.layout)
 
@@ -46,7 +47,9 @@ class BootstrapMixin(object):
         else:
             errors = u''
 
-        return mark_safe(errors + output)
+        prefix = u''.join(self.prefix_fields)
+
+        return mark_safe(prefix + errors + output)
 
     def render_fields(self, fields, separator=u""):
         """ Render a list of fields and join the fields by the value in separator. """
@@ -58,6 +61,7 @@ class BootstrapMixin(object):
                 output.append(field.as_html(self))
             else:
                 output.append(self.render_field(field))
+
 
         return separator.join(output)
 
@@ -83,7 +87,7 @@ class BootstrapMixin(object):
 
         if bf.is_hidden:
             # If the field is hidden, add it at the top of the form
-#            self.prefix.append(unicode(bf))
+            self.prefix_fields.append(unicode(bf))
 
             # If the hidden field has errors, append them to the top_errors
             # list which will be printed out at the top of form
