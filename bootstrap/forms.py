@@ -14,14 +14,9 @@ def error_list(errors):
            '</li><li>'.join(errors) + \
            '</li></ul>'
 
-class BootstrapForm(forms.Form):
-    # deprecated in 1.3?
-    #__metaclass__ = DeclarativeFieldsMetaclass
-    
-    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None):
+class BootstrapMixin(object):
 
-        super(BootstrapForm, self).__init__(data, files, auto_id, prefix, initial)
-
+    def __bootstrap__(self):
         # do we have an explicit layout?
         if hasattr(self, 'Meta') and hasattr(self.Meta, 'layout'):
             self.layout = self.Meta.layout
@@ -39,29 +34,22 @@ class BootstrapForm(forms.Form):
         else:
             self.template_base = "bootstrap"
 
-        self.prefix = []
-        self.top_errors = []
-
     def as_div(self):
         """ Render the form as a set of <div>s. """
 
+        self.top_errors = []
+        self.prefix_fields = []
+
         output = self.render_fields(self.layout)
-        prefix = u''.join(self.prefix)
 
         if self.top_errors:
             errors = error_list(self.top_errors)
         else:
             errors = u''
 
-        self.prefix = []
-        self.top_errors = []
+        prefix = u''.join(self.prefix_fields)
 
         return mark_safe(prefix + errors + output)
-
-
-    # Default output is now as <div> tags.
-    __str__ = as_div
-    __unicode__ = as_div
 
     def render_fields(self, fields, separator=u""):
         """ Render a list of fields and join the fields by the value in separator. """
@@ -74,8 +62,8 @@ class BootstrapForm(forms.Form):
             else:
                 output.append(self.render_field(field))
 
-        return separator.join(output)
 
+        return separator.join(output)
 
     def render_field(self, field):
         """ Render a named field to HTML. """
@@ -99,7 +87,7 @@ class BootstrapForm(forms.Form):
 
         if bf.is_hidden:
             # If the field is hidden, add it at the top of the form
-#            self.prefix.append(unicode(bf))
+            self.prefix_fields.append(unicode(bf))
 
             # If the hidden field has errors, append them to the top_errors
             # list which will be printed out at the top of form
@@ -144,6 +132,28 @@ class BootstrapForm(forms.Form):
 
         return mark_safe(output)
 
+class BootstrapForm(forms.Form, BootstrapMixin):
+    def __init__(self, *args, **kwargs):
+        forms.Form.__init__(self, *args, **kwargs)
+        self.__bootstrap__()
+
+    # Default output is now as <div> tags.
+    def __str__(self):
+        return self.as_div()
+
+    def __unicode__(self):
+        return self.as_div()
+
+class BootstrapModelForm(forms.ModelForm, BootstrapMixin):
+    def __init__(self, *args, **kwargs):
+        forms.ModelForm.__init__(self, *args, **kwargs)
+        self.__bootstrap__()
+
+    def __str__(self):
+        return self.as_div()
+
+    def __unicode__(self):
+        return self.as_div()
 
 class Fieldset(object):
     """ Fieldset container. Renders to a <fieldset>. """
