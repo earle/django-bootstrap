@@ -8,11 +8,13 @@ Installation
 
         pip install -e git+git://github.com/earle/django-bootstrap.git#egg=bootstrap
 
-2. Add to INSTALLED_APPS
+2. Add to INSTALLED_APPS:
+	
+        'bootstrap',
 
 Usage
 -----
-    from bootstrap.forms import BootstrapForm
+    from bootstrap.forms import BootstrapForm, Fieldset
 
     class LoginForm(BootstrapForm):
         class Meta:
