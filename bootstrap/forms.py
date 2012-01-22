@@ -4,6 +4,7 @@ from django.template.loader import get_template, select_template
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django import forms
+from django.utils.encoding import force_unicode
 
 class NoSuchFormField(Exception):
     """""The form field couldn't be resolved."""""
@@ -105,7 +106,7 @@ class BootstrapMixin(object):
 
             if field_instance.help_text:
                 # The field has a help_text, construct <span> tag
-                help_text = '<span class="help_text">%s</span>' % escape(field_instance.help_text)
+                help_text = '<span class="help_text">%s</span>' % force_unicode(field_instance.help_text)
             else:
                 help_text = u''
 
