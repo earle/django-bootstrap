@@ -30,10 +30,10 @@ Usage
 Template Usage
 --------------
 
-    <form action="/login/" method="post">
+    <form action="/login/" method="post" class="form-horizontal">
         {{ form }}
-        <div class="actions">
-            <button type="submit" class="btn primary">Login</button> &nbsp;
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
 
