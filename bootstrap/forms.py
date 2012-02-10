@@ -125,7 +125,7 @@ class BootstrapMixin(object):
                 template = get_template(self.custom_fields[field])
             else:
                 template = select_template([
-                    os.path.join(self.template_base, 'field_%s.html' % field_instance.__class__.__name__.lower()),
+                    os.path.join(self.template_base, 'field_%s.html' % type(field_instance.widget).__name__.lower()),
                     os.path.join(self.template_base, 'field_default.html'), ])
                 
             # Finally render the field
