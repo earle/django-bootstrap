@@ -112,7 +112,7 @@ class BootstrapMixin(object):
 
             field_hash = {
                 'class' : mark_safe(css_class),
-                'label' : mark_safe(bf.label and bf.label_tag(bf.label) or ''),
+                'label' : mark_safe(bf.label or ''),
                 'help_text' :mark_safe(help_text),
                 'field' : field_instance,
                 'bf' : mark_safe(unicode(bf)),
@@ -125,7 +125,7 @@ class BootstrapMixin(object):
                 template = get_template(self.custom_fields[field])
             else:
                 template = select_template([
-                    os.path.join(self.template_base, 'field_%s.html' % field_instance.__class__.__name__.lower()),
+                    os.path.join(self.template_base, 'field_%s.html' % type(field_instance.widget).__name__.lower()),
                     os.path.join(self.template_base, 'field_default.html'), ])
                 
             # Finally render the field
