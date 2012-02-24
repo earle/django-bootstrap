@@ -159,10 +159,12 @@ class BootstrapModelForm(forms.ModelForm, BootstrapMixin):
 class Fieldset(object):
     """ Fieldset container. Renders to a <fieldset>. """
 
-    def __init__(self, legend, *fields):
+    def __init__(self, legend, *fields, css_class=None):
         self.legend_html = legend and ('<legend>%s</legend>' % legend) or ''
         self.fields = fields
+        self.css_class = css_class
     
     def as_html(self, form):
-        return u'<fieldset>%s%s</fieldset>' %  (self.legend_html, form.render_fields(self.fields), )
+        class_str = self.css_class and (' class="%s"' % self.css_class) or ''
+        return u'<fieldset%s>%s%s</fieldset>' %  (class_str, self.legend_html, form.render_fields(self.fields), )
             
