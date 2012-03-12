@@ -12,7 +12,8 @@ class NoSuchFormField(Exception):
 
 class BootstrapMixin(object):
 
-    def __bootstrap__(self):
+    def __init__(self, *args, **kwargs):
+        super(BootstrapMixin, self).__init__(*args, **kwargs)
         # do we have an explicit layout?
         if hasattr(self, 'Meta') and hasattr(self.Meta, 'layout'):
             self.layout = self.Meta.layout
@@ -29,6 +30,9 @@ class BootstrapMixin(object):
             self.template_base = self.Meta.template_base
         else:
             self.template_base = "bootstrap"
+
+    # For backward compatibility
+    __bootstrap__ = __init__
 
     def top_errors_as_html(self):
         """ Render top errors as set of <div>'s. """
@@ -133,28 +137,18 @@ class BootstrapMixin(object):
 
         return mark_safe(output)
 
-class BootstrapForm(forms.Form, BootstrapMixin):
-    def __init__(self, *args, **kwargs):
-        forms.Form.__init__(self, *args, **kwargs)
-        self.__bootstrap__()
-
-    # Default output is now as <div> tags.
-    def __str__(self):
-        return self.as_div()
-
     def __unicode__(self):
+        # Default output is now as <div> tags.
         return self.as_div()
 
-class BootstrapModelForm(forms.ModelForm, BootstrapMixin):
-    def __init__(self, *args, **kwargs):
-        forms.ModelForm.__init__(self, *args, **kwargs)
-        self.__bootstrap__()
 
-    def __str__(self):
-        return self.as_div()
+class BootstrapForm(BootstrapMixin, forms.Form):
+    pass
 
-    def __unicode__(self):
-        return self.as_div()
+
+class BootstrapModelForm(BootstrapMixin, forms.ModelForm):
+    pass
+
 
 class Fieldset(object):
     """ Fieldset container. Renders to a <fieldset>. """
