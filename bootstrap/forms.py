@@ -10,11 +10,6 @@ class NoSuchFormField(Exception):
     """""The form field couldn't be resolved."""""
     pass
 
-def error_list(errors):
-    return '<ul class="errors"><li>' + \
-           '</li><li>'.join(errors) + \
-           '</li></ul>'
-
 class BootstrapMixin(object):
 
     def __bootstrap__(self):
@@ -35,16 +30,21 @@ class BootstrapMixin(object):
         else:
             self.template_base = "bootstrap"
 
+    def top_errors_as_html(self):
+        """ Render top errors as set of <div>'s. """
+        return ''.join(["<div class=\"alert alert-error\">%s</div>" % error
+                        for error in self.top_errors])
+
     def as_div(self):
         """ Render the form as a set of <div>s. """
 
-        self.top_errors = []
+        self.top_errors = self.non_field_errors()
         self.prefix_fields = []
 
         output = self.render_fields(self.layout)
 
         if self.top_errors:
-            errors = error_list(self.top_errors)
+            errors = self.top_errors_as_html()
         else:
             errors = u''
 
