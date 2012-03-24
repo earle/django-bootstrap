@@ -60,7 +60,7 @@ class BootstrapMixin(object):
         """ Render a list of fields and join the fields by the value in separator. """
 
         output = []
-        
+
         for field in fields:
             if isinstance(field, Fieldset):
                 output.append(field.as_html(self))
@@ -123,15 +123,16 @@ class BootstrapMixin(object):
                 'bf_raw' : bf,
                 'errors' : mark_safe(bf_errors),
                 'field_type' : mark_safe(field.__class__.__name__),
+                'label_id': bf._auto_id(),
             }
-            
+
             if self.custom_fields.has_key(field):
                 template = get_template(self.custom_fields[field])
             else:
                 template = select_template([
                     os.path.join(self.template_base, 'field_%s.html' % type(field_instance.widget).__name__.lower()),
                     os.path.join(self.template_base, 'field_default.html'), ])
-                
+
             # Finally render the field
             output = template.render(Context(field_hash))
 
@@ -157,8 +158,8 @@ class Fieldset(object):
         self.legend_html = legend and ('<legend>%s</legend>' % legend) or ''
         self.fields = fields
         self.css_class = kwargs.get('css_class')
-    
+
     def as_html(self, form):
         class_str = self.css_class and (' class="%s"' % self.css_class) or ''
         return u'<fieldset%s>%s%s</fieldset>' %  (class_str, self.legend_html, form.render_fields(self.fields), )
-            
+
