@@ -1,4 +1,4 @@
-from django.forms.widgets import RadioInput, RadioFieldRenderer, RadioSelect,TextInput
+from django.forms.widgets import Input, RadioInput, RadioFieldRenderer, RadioSelect, TextInput
 from django.utils.html import conditional_escape
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
@@ -25,6 +25,25 @@ class OptionsRadioRenderer(RadioFieldRenderer):
 class OptionsRadio(RadioSelect):
     renderer = OptionsRadioRenderer
 
+
 class AppendedText(TextInput):
     def render(self, name, value, attrs=None):
-        return '%s<span class="add-on">%s</span>' % (super(AppendedText,self).render(name, value, attrs),self.attrs['append_text'])
+        append_text = self.attrs.get('append_text', '')
+        return '%s<span class="add-on">%s</span>' % (super(AppendedText, self).render(name, value, attrs),
+                                                     append_text)
+
+
+class PrependedText(TextInput):
+    def render(self, name, value, attrs=None):
+        prepend_text = self.attrs.get('prepend_text', '')
+        return '<span class="add-on">%s</span>%s' % (prepend_text, super(PrependedText, self).render(name, value, attrs))
+
+
+class AppendPrependText(TextInput):
+    def render(self, name, value, attrs=None):
+        append_text, prepend_text = self.attrs.get('append_text', ''), self.attrs.get('prepend_text', '')
+        return '<span class="add-on">%s</span>%s<span class="add-on">%s</span>' % (prepend_text, super(AppendPrependText, self).render(name, value, attrs), append_text)
+
+
+class EmailInput(Input):
+    input_type = 'email'
