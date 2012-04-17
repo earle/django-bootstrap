@@ -26,6 +26,21 @@ Usage
         password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
+If you want to use the Bootstrap Form wrapper on a built-in form, such
+as those in `django.contrib.auth.forms` then you can use the mixin
+class.
+
+    from django.contrib.auth.forms import PasswordChangeForm
+    from bootstrap.forms import BootstrapMixin, Fieldset
+
+    class BootstrapPasswordChangeForm(BootstrapMixin, PasswordChangeForm):
+        class Meta:
+	    layout = (
+	        Fieldset("Change your password",
+		        "old_password", "new_password1", "new_password2"),
+
+When using the mixin directly it must be the first class your form
+inherits from.
 
 Template Usage
 --------------
