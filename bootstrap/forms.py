@@ -160,9 +160,7 @@ class Fieldset(object):
     def __init__(self, legend, *fields, **kwargs):
         self.legend_html = legend and ('<legend>%s</legend>' % legend) or ''
         self.fields = fields
-        self.css_class = kwargs.get('css_class')
+        self.css_class = kwargs.get('css_class', '_'.join(legend.lower().split()))
 
     def as_html(self, form):
-        class_str = self.css_class and (' class="%s"' % self.css_class) or ''
-        return u'<fieldset%s>%s%s</fieldset>' %  (class_str, self.legend_html, form.render_fields(self.fields), )
-
+        return u'<fieldset class="%s">%s%s</fieldset>' % (self.css_class, self.legend_html, form.render_fields(self.fields))
