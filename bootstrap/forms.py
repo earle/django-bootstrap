@@ -158,9 +158,11 @@ class Fieldset(object):
     """ Fieldset container. Renders to a <fieldset>. """
 
     def __init__(self, legend, *fields, **kwargs):
-        self.legend_html = legend and ('<legend>%s</legend>' % legend) or ''
+        self.legend = legend
         self.fields = fields
         self.css_class = kwargs.get('css_class', '_'.join(legend.lower().split()))
 
     def as_html(self, form):
-        return u'<fieldset class="%s">%s%s</fieldset>' % (self.css_class, self.legend_html, form.render_fields(self.fields))
+        legend_html = self.legend and (u'<legend>%s</legend>' % self.legend) or ''
+        return u'<fieldset class="%s">%s%s</fieldset>' % (self.css_class, legend_html, form.render_fields(self.fields))
+
