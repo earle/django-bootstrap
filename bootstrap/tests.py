@@ -6,11 +6,40 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django import forms
+from forms import BootstrapForm, Fieldset
+
+class LoginForm(BootstrapForm):
+    class Meta:
+        layout = (
+            Fieldset("Please Login", "username", "password", ),
+        )
+
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class FormTests(TestCase):
+    def test_form_fieldsets(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Tests that fieldsets are rendered properly.
         """
-        self.assertEqual(1 + 1, 2)
+        expected = """<fieldset class="please_login"><legend>Please Login</legend><div id="div_id_username" class="control-group">
+    <label class="control-label" for="id_username">Username</label>
+    <div class="controls">
+        <input id="id_username" type="text" name="username" maxlength="100" />
+        
+        
+    </div>
+</div> <!-- /clearfix -->
+<div id="div_id_password" class="control-group">
+    <label class="control-label" for="id_password">Password</label>
+    <div class="controls">
+        <input id="id_password" type="password" name="password" maxlength="100" />
+        
+        
+    </div>
+</div> <!-- /clearfix -->
+</fieldset>"""
+        form = LoginForm()
+        self.assertEqual(str(form), expected)
