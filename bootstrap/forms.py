@@ -113,7 +113,7 @@ class BootstrapMixin(object):
 
             if field_instance.help_text:
                 # The field has a help_text, construct <span> tag
-                help_text = '<span class="help_text">%s</span>' % force_unicode(field_instance.help_text)
+                help_text = '<span class="help-block">%s</span>' % force_unicode(field_instance.help_text)
             else:
                 help_text = u''
 
