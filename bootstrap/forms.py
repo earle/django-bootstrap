@@ -113,7 +113,7 @@ class BootstrapMixin(object):
 
             if field_instance.help_text:
                 # The field has a help_text, construct <span> tag
-                help_text = '<span class="help_text">%s</span>' % force_unicode(field_instance.help_text)
+                help_text = '<span class="help-block">%s</span>' % force_unicode(field_instance.help_text)
             else:
                 help_text = u''
 
@@ -160,10 +160,9 @@ class Fieldset(object):
     def __init__(self, legend, *fields, **kwargs):
         self.legend = legend
         self.fields = fields
-        self.css_class = kwargs.get('css_class')
+        self.css_class = kwargs.get('css_class', '_'.join(legend.lower().split()))
 
     def as_html(self, form):
         legend_html = self.legend and (u'<legend>%s</legend>' % self.legend) or ''
-        class_str = self.css_class and (' class="%s"' % self.css_class) or ''
-        return u'<fieldset%s>%s%s</fieldset>' %  (class_str, legend_html, form.render_fields(self.fields), )
+        return u'<fieldset class="%s">%s%s</fieldset>' % (self.css_class, legend_html, form.render_fields(self.fields))
 
