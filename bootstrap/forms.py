@@ -24,6 +24,11 @@ class BootstrapMixin(object):
         else:
             self.template_base = "bootstrap"
 
+        if hasattr(self, 'Meta') and hasattr(self.Meta, 'help_style'):
+            self.help_style = self.Meta.help_style
+        else:
+            self.help_style = "block"
+
     # For backward compatibility
     __bootstrap__ = __init__
 
@@ -113,7 +118,7 @@ class BootstrapMixin(object):
 
             if field_instance.help_text:
                 # The field has a help_text, construct <span> tag
-                help_text = '<span class="help-block">%s</span>' % force_unicode(field_instance.help_text)
+                help_text = '<span class="help-%s">%s</span>' % (self.help_style, force_unicode(field_instance.help_text))
             else:
                 help_text = u''
 
