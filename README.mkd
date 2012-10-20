@@ -1,5 +1,14 @@
 Django Form wrapper for Twitter-Bootstrap
 =========================================
+
+
+**ATTENTION:**
+
+**This project is not longer maintained. Please use [django-crispy-forms](http://django-crispy-forms.readthedocs.org/en/d-0/)
+instead. It's far more complete, and has a bootstrap theme that has support for
+the latest version of bootstrap.**
+
+
 http://twitter.github.com/bootstrap
 
 Installation
